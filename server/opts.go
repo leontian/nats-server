@@ -161,6 +161,7 @@ type LeafNodeOpts struct {
 	Advertise         string        `json:"-"`
 	NoAdvertise       bool          `json:"-"`
 	ReconnectInterval time.Duration `json:"-"`
+	InfoWait          time.Duration `json:"-"`
 
 	// Compression options
 	Compression CompressionOpts `json:"-"`
@@ -5114,6 +5115,10 @@ func setBaselineOptions(opts *Options) {
 	// Set this regardless of opts.LeafNode.Port
 	if opts.LeafNode.ReconnectInterval == 0 {
 		opts.LeafNode.ReconnectInterval = DEFAULT_LEAF_NODE_RECONNECT
+	}
+
+	if opts.LeafNode.InfoWait == 0 {
+		opts.LeafNode.InfoWait = DEFAULT_LEAF_NODE_RECONNECT
 	}
 
 	if opts.MaxControlLine == 0 {

@@ -1047,7 +1047,7 @@ func (s *Server) createLeafNode(conn net.Conn, rURL *url.URL, remote *leafNodeCf
 				}
 			}
 			// We need to wait for the info, but not for too long.
-			c.nc.SetReadDeadline(time.Now().Add(DEFAULT_LEAFNODE_INFO_WAIT))
+			c.nc.SetReadDeadline(time.Now().Add(opts.LeafNode.InfoWait))
 		}
 
 		// We will process the INFO from the readloop and finish by
@@ -2877,7 +2877,7 @@ func (c *client) leafNodeSolicitWSConnection(opts *Options, rURL *url.URL, remot
 	var resp *http.Response
 
 	br := bufio.NewReaderSize(c.nc, MAX_CONTROL_LINE_SIZE)
-	c.nc.SetReadDeadline(time.Now().Add(DEFAULT_LEAFNODE_INFO_WAIT))
+	c.nc.SetReadDeadline(time.Now().Add(opts.LeafNode.InfoWait))
 	resp, err = http.ReadResponse(br, req)
 	if err == nil &&
 		(resp.StatusCode != 101 ||
